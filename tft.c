@@ -1705,6 +1705,16 @@ void TFT_Print_Raining(uint16_t x, uint16_t y)
 	}
 }
 
+void TFT_Print_Temp(int8_t temp, uint16_t x, uint16_t y)
+{
+	uint8_t chars[2];
+	chars[0] = (temp / 10) % 10;
+	chars[1] = (temp % 10);
+	TFT_Print_Number(chars[0] ,  x + 0 , y, 32, 48, 0xFFFF);
+	TFT_Print_Number(chars[1] ,  x + 35, y, 32, 48, 0xFFFF);
+	TFT_Print_Number(12,  x + 70, y, 32, 48, 0xFFFF);
+}
+
 
 void TFT_Init(void)
 {

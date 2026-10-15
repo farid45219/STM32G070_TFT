@@ -20,6 +20,7 @@ void    TFT_Print_Image(uint8_t *image, uint16_t x, uint16_t y, uint16_t w, uint
 void    TFT_Print_Cloud(uint16_t x, uint16_t y);
 void    TFT_Print_Droplet(uint16_t x, uint16_t y);
 void    TFT_Print_Raining(uint16_t x, uint16_t y);
+void    TFT_Print_Temp(int8_t temp, uint16_t x, uint16_t y);
 void 	TFT_Init(void);
 
 

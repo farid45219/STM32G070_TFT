@@ -43,10 +43,9 @@ void THREAD_TFT(void)
 	
 	while(1)
 	{
-		TFT_Print_Number(2 ,  40, 135, 32, 48, 0xFFFF);
-		TFT_Print_Number(5 ,  75, 135, 32, 48, 0xFFFF);
-		TFT_Print_Number(12, 110, 135, 32, 48, 0xFFFF);
+		
 		TFT_Print_Raining(140, 120);
+		TFT_Print_Temp(26, 40, 130);
 		Kernel_Thread_Sleep(1000);
 	}
 	
