@@ -40,15 +40,14 @@ void THREAD_TFT(void)
 {
 	TFT_Init();
 	TFT_Fill_Rect(0, 0, 240, 320, 0x0000);
-	TFT_Print_Cloud(80, 100);
-	TFT_Print_Droplet(90, 150);
-	TFT_Print_Droplet(110, 150);
-	Kernel_Thread_Sleep(1000);
 	
 	while(1)
 	{
-		
-		
+		TFT_Print_Number(2 ,  40, 135, 32, 48, 0xFFFF);
+		TFT_Print_Number(5 ,  75, 135, 32, 48, 0xFFFF);
+		TFT_Print_Number(12, 110, 135, 32, 48, 0xFFFF);
+		TFT_Print_Raining(140, 120);
+		Kernel_Thread_Sleep(1000);
 	}
 	
 }

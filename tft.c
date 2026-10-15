@@ -10,7 +10,7 @@
 #define TFT_X_OFFSET 0
 #define TFT_Y_OFFSET 0
 
-/*
+
 uint8_t font32x48[2688] = 
 {
     //0
@@ -723,7 +723,7 @@ uint8_t font32x48[2688] =
 	0x00,0x00,0x00,0x00,
 	0x00,0x00,0x00,0x00,
 };
-*/
+
 
 
 uint8_t rainy_icon_64_rgb565[8192] = {
@@ -1518,7 +1518,7 @@ void TFT_Print_Number(uint8_t num, uint16_t x, uint16_t y, uint16_t w, uint16_t 
     //Send the buffer line-by-line
     for (bytes = offset; bytes < end; bytes++)
     {
-		//char_val = font32x48[bytes];
+		char_val = font32x48[bytes];
         for (bits = 7; bits >= 0; bits--)
         {
 			if(char_val & (1 << bits))
@@ -1645,14 +1645,64 @@ void TFT_Print_Image(uint8_t *image, uint16_t x, uint16_t y, uint16_t w, uint16_
 	SPI_Slave_Deselect();
 }
 
+
 void TFT_Print_Cloud(uint16_t x, uint16_t y)
 {
 	TFT_Print_Image(rainy_icon_64_rgb565, x, y, 64, 64);
 }
 
+
 void TFT_Print_Droplet(uint16_t x, uint16_t y)
 {
 	TFT_Print_Image(droplet_icon_10_10_tilt30_rgb565, x, y, 10, 10);
+}
+
+
+void TFT_Print_Raining(uint16_t x, uint16_t y)
+{
+	uint8_t  index, loop_cnt, x_off_val[3];
+	uint16_t x_var, y_var, x_off;
+	
+	index = 0;
+	loop_cnt = 0;
+	x_off_val[0] = 5;
+	x_off_val[1] = 21;
+	x_off_val[2] = 13;
+	x_var = x + 15;
+	y_var = y + 50;
+	
+	TFT_Print_Cloud(x, y);
+	
+	while(1)
+	{
+		loop_cnt++;
+		x_var -= 1;
+		y_var += 1;
+		
+		if(loop_cnt >= 12)
+		{
+			//clear loop counter
+			loop_cnt = 0;
+			//reset location
+			x_var = x + 15;
+			y_var = y + 50;
+			//erase section
+			TFT_Fill_Rect(x + 5, y + 50, 55, 30, 0x0000);
+			//calculate offset
+			x_off = x_off_val[index];
+			//update offset index
+			index ++;
+			if(index >= 3)
+			{
+				break;
+			}
+		}
+		else
+		{
+			TFT_Print_Droplet(x_var + x_off, y_var);
+		}
+		Kernel_Thread_Sleep(20);
+	}
 }
 
 
